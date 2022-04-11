@@ -1,0 +1,216 @@
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <app-header></app-header>
+
+
+            <div class="container-fluid" *ngIf="!isBooking">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">All Listings</h1>
+
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="m-0 font-weight-bold text-primary">Listings</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                                <div class="row mb-2">
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small"
+                                                placeholder="Enter Title to Search Listing..." aria-label="Search" name="title"
+                                                [(ngModel)]="searchName" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button" (click)="searchByName()">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small"
+                                                placeholder="Enter City to Search Listing..." aria-label="Search" name="city"
+                                                [(ngModel)]="searchCity" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button" (click)="searchByCity()">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small"
+                                                placeholder="Enter Postal Code to Search Listing..." aria-label="Search" name="code"
+                                                [(ngModel)]="searchPostalCode" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button"
+                                                    (click)="searchByPostal()">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered dataTable" id="dataTable" role="grid"
+                                            aria-describedby="dataTable_info" style="width: 100%;" width="100%"
+                                            cellspacing="0">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="sorting sorting_asc" tabindex="0"
+                                                        aria-controls="dataTable" rowspan="1" colspan="1"
+                                                        style="width: 57.2px;" aria-sort="ascending"
+                                                        aria-label="Name: activate to sort column descending">ID</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dataTable"
+                                                        rowspan="1" colspan="1" style="width: 61.2px;"
+                                                        aria-label="Position: activate to sort column ascending">
+                                                        Listing Title</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dataTable"
+                                                        rowspan="1" colspan="1" style="width: 49.2px;"
+                                                        aria-label="Office: activate to sort column ascending">
+                                                        Description
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dataTable"
+                                                        rowspan="1" colspan="1" style="width: 30.2px;"
+                                                        aria-label="Age: activate to sort column ascending">Address</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dataTable"
+                                                        rowspan="1" colspan="1" style="width: 68.2px;"
+                                                        aria-label="Start date: activate to sort column ascending">City
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dataTable"
+                                                        rowspan="1" colspan="1" style="width: 68.2px;"
+                                                        aria-label="Start date: activate to sort column ascending">
+                                                        Postal Code</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dataTable"
+                                                        rowspan="1" colspan="1" style="width: 66.2px;"
+                                                        aria-label="Salary: activate to sort column ascending">Price
+                                                    </th>
+                                                    <th *ngIf="role && role == 'user'" class="sorting" tabindex="0"
+                                                        aria-controls="dataTable" rowspan="1" colspan="1"
+                                                        style="width: 66.2px;"
+                                                        aria-label="Salary: activate to sort column ascending">Booking
+                                                    </th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr *ngFor="let item of listing">
+                                                    <th>{{item.listing_id}}</th>
+                                                    <th>{{item.listing_title}}</th>
+                                                    <th>{{item.description}}</th>
+                                                    <th>{{item.street}}</th>
+                                                    <th>{{item.city}}</th>
+                                                    <th>{{item.postal_code}}</th>
+                                                    <th>{{item.price}}</th>
+                                                    <th *ngIf="role && role == 'user'"><button class="btn btn-primary"
+                                                            (click)="createBooking(item)">Book Now</button></th>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="container-fluid" *ngIf="isBooking">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Add Booking Information Here..</h1>
+
+                <div class="row">
+                    <div class="col-8 mx-auto">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Add Booking</h1>
+                            </div>
+                            <form id="registerForm" class="user" name="registerForm"
+                                (ngSubmit)="rf.form.valid && saveBooking(rf)" #rf="ngForm" novalidate>
+                                <div class="form-group row">
+                                    <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <label>Booking Date</label>
+                                    
+                                        <input type="date" style="width: 31%" class="form-control form-control-user" id="exampleFirstName"
+                                            placeholder="First Name" [(ngModel)]="bookingDate" #bdate="ngModel"
+                                            name="date" [ngClass]="{ 'is-invalid': rf.submitted && bdate.invalid }"
+                                            required>
+                    
+                                        <div *ngIf="rf.submitted && bdate.invalid" class="invalid-feedback">
+                                            <div *ngIf="bdate.errors.required">Booking date is required</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 mb-3 mb-sm-0" style="margin-top: 10px; margin-left: 10px;">
+                                        <label style="margin-left: -10px;">Booking Start</label>
+                                        <input type="date"  style="width: 63%; margin-left: -10px;" class="form-control form-control-user" id="exampleFirstName"
+                                            [(ngModel)]="bookingStart" #bstart="ngModel" name="bdate"
+                                            [ngClass]="{ 'is-invalid': rf.submitted && bstart.invalid }" required>
+
+                                        <div *ngIf="rf.submitted && bstart.invalid" class="invalid-feedback">
+                                            <div *ngIf="bstart.errors.required">Booking start date is required</div>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-sm-6 mb-3 mb-sm-0" style="margin-top: 10px;">
+                                        <label>Booking End</label>
+                                        <input type="date"  style="width: 63%;" class="form-control form-control-user" id="exampleFirstName"
+                                            [(ngModel)]="bookingEnd" #bend="ngModel" name="bend"
+                                            [ngClass]="{ 'is-invalid': rf.submitted && bend.invalid }" required>
+
+                                        <div *ngIf="rf.submitted && bend.invalid" class="invalid-feedback">
+                                            <div *ngIf="bend.errors.required">Booking end date is required</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary btn-user btn-block" style="margin-top: 40px; width: 20%; margin-left: 40%; font-size: large;">
+                                    Confirm Booking
+                                </button>
+                                <hr>
+
+                            </form>
+                            <hr>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- End of Main Content -->
+
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
